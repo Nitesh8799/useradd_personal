@@ -4,13 +4,16 @@ for group in $(cat $1)
 do
 groupadd $group
 done
-for test in $(cat $2)
-do
-useradd -g $group $test
-echo $1:"redhat" | chpasswd
+for i in $(cat $2); do
+        useradd -g $group $i
+    echo "user $i added successfully!"
+    echo $i:redhat | chpasswd
+    echo "Password for user $i changed successfully"
 done
-for user in $(cat $3)
-do
-useradd -s /sbin/nologin $user
-echo $1:"redhat" | chpasswd
+#!/bin/bash
+for nologin in $( cat $3 ); do
+        useradd -s /sbin/nologin $nologin
+    echo "user $nologin added successfully!"
+    echo $nologin:redhat | chpasswd
+    echo "Password for user $nologin changed successfully"
 done
